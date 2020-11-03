@@ -8,6 +8,7 @@ const getStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 200,
+    textAlignLast: 'center'
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -19,7 +20,7 @@ const Dropdown = (props) => {
   const { dropDownData = [], onDropdownChange } = props;
 
   return (
-    <FormControl variant="outlined">
+    <FormControl className={classes.formControl} variant="outlined">
       <InputLabel htmlFor="outlined-age-native-simple">Category</InputLabel>
       <Select 
       native label="Category" 

@@ -70,6 +70,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#D3D3D3",
     color: "gray",
   },
+  indicator: {
+    background: "blue"
+  }
 }));
 
 export default function NavTabs(props) {
@@ -86,7 +89,7 @@ export default function NavTabs(props) {
     <div className={classes.root}>
       <AppBar className={classes.appBar} position="static">
         <Tabs
-          TabIndicatorProps={{ style: { background: "blue" } }}
+          TabIndicatorProps={{ style: { background: "blue"} }}
           variant="fullWidth"
           value={value}
           onChange={handleChange}
