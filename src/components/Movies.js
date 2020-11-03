@@ -12,19 +12,29 @@ const getStyles = makeStyles(theme => ({
 
 const Movies = props => {
   const classes = getStyles()
-  const baseImageURL = 'http://image.tmdb.org/t/p/w185/'
+  const baseImageURL = 'http://image.tmdb.org/t/p/w300/'
+  const { index } = props
+
   return (
     <div className='container'>
       <Grid container className={classes.root} spacing={5}>
         {props.movies.map(movie => {
-          const { id, title, release_date, overview, popularity, poster_path } = movie
+          let { id, title, release_date, original_name, overview, popularity, poster_path, backdrop_path } = movie
+
+          if (title == undefined) {
+            title = original_name
+          }
+          if (poster_path == undefined) {
+            poster_path = backdrop_path
+          }
+
           return (
             <Grid item xs={12}>
               <MovieCard
                 key={id}
                 id={id}
                 title={title}
-                imageUrl={baseImageURL + poster_path}
+                imageUrl={baseImageURL + poster_path || baseImageURL + backdrop_path}
                 release_date={release_date}
                 overview={overview}
                 popularity={popularity}

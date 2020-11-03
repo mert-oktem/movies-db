@@ -1,49 +1,70 @@
-import React, { Component } from 'react'
-import Form from '../components/SearchBar'
-import Loading from '../components/Loading'
-import Movies from '../components/Movies'
-import TabContainer from './TabsContainer'
+import React, { Component } from "react";
+import SearchBar from "../components/SearchBar";
+import Loading from "../components/Loading";
+import Movies from "../components/Movies";
+import TabContainer from "./TabsContainer";
+import Header from "../components/Header";
 
-import { getMovie } from '../services/api'
+import { getMovie } from "../services/api";
 
-class MainContainer extends Component {
+class RecipesContainer extends Component {
   state = {
-    searchQuery: '',
-    movies: '',
-    dropDownSelection: ''
-  }
+    searchQuery: "",
+    movies: "",
+    dropDownSelection: "movie",
+    isSearched: false,
+    isTyping: false
+  };
 
-  fetchMovies = e => {
+  fetchMovies = (e) => {
+    getMovie(this.state.dropDownSelection, this.state.searchQuery).then(
+      (result) => {
+        return this.setState({ movies: result, isSearched: true });
+      }
+    );
     e.preventDefault();
-    console.log(this.state.searchQuery + this.state.dropDownSelection)
+  };
+
+  handleInputChange = (e) => {
+    this.setState({
+      searchQuery: e.target.value,
+    });
+
+    if (this.searchQuery != "") {
+      this.setState({
+        isTyping: true,
+      });
+    }
+    else {
+      this.setState({
+        isTyping: false,
+      });
+    }
   }
 
-  handleInputChange = e => {
+  getDropDownSelection = (e) => {
     this.setState({
-      searchQuery: e.target.value
-    })
-    console.log('Input' + e.target.value)
-  }
-
-  getDropDownSelection = e => {
-    this.setState({
-      dropDownSelection: e
-    })
-    console.log('Dropdown:' + e)
-  }
+      dropDownSelection: e,
+    });
+  };
 
   render() {
     return (
       <div>
-        <Form
-          onChange={this.handleInputChange}
+        <Header></Header>
+        <SearchBar
+          handleInputChange={this.handleInputChange}
           onSubmit={this.fetchMovies}
           getDropDownSelection={this.getDropDownSelection}
         />
-        <TabContainer></TabContainer>
+        <TabContainer
+          movieData={this.state.movies}
+          isSearched={this.state.isSearched}
+          isTyping={this.state.isTyping}
+        />
       </div>
-    )
+    );
   }
 }
 
-export default MainContainer
+export default RecipesContainer;

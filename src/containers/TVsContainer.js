@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
-import TVsDropdown from '../components/TVsDropdown'
 import Loading from '../components/Loading'
-import TVs from '../components/TVs'
+import Movies from '../components/Movies'
 import { getTVs } from '../services/api'
+import Dropdown from '../components/Dropdown'
 
 class TVsContainer extends Component {
   state = {
     movies: [],
+    dropDownSelection: "airing_today",
     isLoading: false
   }
 
-  fetchTVs = e => {
-    //e.preventDefault()
+  tvShowsDropdownOptions = ["airing_today", "on_the_air", "popular", "top_rated"];
 
+  componentDidMount() {
+    this.fetchTVs(this.tvShowsDropdownOptions[0]);
+  }
+
+  fetchTVs = e => {
     this.setState({
       isLoading: true
     })
@@ -30,14 +35,21 @@ class TVsContainer extends Component {
     )
   }
 
+  getDropDownSelection = e => {
+    this.setState({
+      dropDownSelection: e
+    })
+  }
+
   render() {
     const { isLoading, movies } = this.state
     return (
       <div>
-        <TVsDropdown
-          onInputChange={this.fetchTVs}
+        <Dropdown
+          onDropdownChange={this.fetchTVs}
+          dropDownData={this.tvShowsDropdownOptions}
         />
-        {isLoading ? <Loading /> : <TVs tvs={movies} />}
+        {isLoading ? <Loading /> : <Movies movies={movies} />}
       </div>
     )
   }

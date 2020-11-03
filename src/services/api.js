@@ -1,48 +1,44 @@
-import axios from 'axios'
+import axios from "axios";
 
-import { API_KEY, BASE_URL } from '../config/api_config'
-
+import { API_KEY, BASE_URL } from "../config/api_config";
 
 // Search movie
-export const getSearchResults = async (type, query) => {
+export const getMovie = async (type, movieName) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}search/${type}?api_key=${APP_KEY}}&query=${query}`
-    )
+      `${BASE_URL}search/${type}?api_key=${API_KEY}&query=${movieName}`
+    );
 
-    const movie = response.data.results
+    const movie = response.data.results;
 
-    return movie
+    return movie;
   } catch (error) {
-    throw error
-  } 
-}
+    throw error;
+  }
+};
 
 // GET movies
-export const getMovies = async category => {
+export const getMovies = async (e) => {
   try {
-
     const response = await axios.get(
-      `${BASE_URL}movie/${category}?api_key=${APP_KEY}`
-    )
-    const movies = response.data.results
+      `${BASE_URL}movie/${e}?api_key=${API_KEY}`
+    );
+    const movies = response.data.results;
 
-    return movies
+    return movies;
   } catch (error) {
-    throw error
-  } 
-}
+    throw error;
+  }
+};
 
-  // GET TVs
-  export const getTVShows = async category => {
-    try {
-      const response = await axios.get(
-        `${BASE_URL}tv/${category}?api_key=${APP_KEY}`
-      )
-      const TVs = response.data.results
-  
-      return TVs
-    } catch (error) {
-      throw error
-    } 
-}
+// GET TVs
+export const getTVs = async (e) => {
+  try {
+    const response = await axios.get(`${BASE_URL}tv/${e}?api_key=${API_KEY}`);
+    const TVs = response.data.results;
+
+    return TVs;
+  } catch (error) {
+    throw error;
+  }
+};

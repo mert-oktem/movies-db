@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import MoviesDropdown from '../components/MoviesDropdown'
 import Loading from '../components/Loading'
 import Movies from '../components/Movies'
 import { getMovies } from '../services/api'
+import Dropdown from '../components/Dropdown'
 
 class MoviesContainer extends Component {
   state = {
@@ -10,14 +10,18 @@ class MoviesContainer extends Component {
     isLoading: false
   }
 
-  fetchMovies = e => {
-    //e.preventDefault()
+  moviesDropdownOptions = ["now_playing", "popular", "top_rated", "upcoming"];
 
+  componentDidMount() {
+    this.fetchMovies(this.moviesDropdownOptions[0]);
+  }
+
+  fetchMovies = event => {
     this.setState({
       isLoading: true
     })
 
-    getMovies(e).then(
+    getMovies(event).then(
       movies => {
         this.setState({
           movies,
@@ -34,8 +38,9 @@ class MoviesContainer extends Component {
     const { isLoading, movies } = this.state
     return (
       <div>
-        <MoviesDropdown
-          onInputChange={this.fetchMovies}
+        <Dropdown
+          onDropdownChange={this.fetchMovies}
+          dropDownData={this.moviesDropdownOptions}
         />
         {isLoading ? <Loading /> : <Movies movies={movies} />}
       </div>

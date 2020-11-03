@@ -1,52 +1,67 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { makeStyles } from '@material-ui/core'
+import { makeStyles } from "@material-ui/core";
 
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import SearchDropdown from './SearchDropDown'
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dropdown from "./Dropdown";
 
-const getStyles = makeStyles(theme => ({
+const getStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(2),
-    marginTop: '25px',
-    color: 'white',
-    background: 'blue'
+    color: "white",
+    background: "blue",
+    marginLeft: '1%'
   },
   form: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: "5rem"
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "5rem",
   },
   textField: {
     minWidth: 500,
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
+    marginTop: 0,
+    marginBottom: 0
+  },
+  dropDown: {
+    marginLeft: '5%'
   }
-}))
+}));
 
-const Form = props => {
-  const classes = getStyles()
+const SearchBar = (props) => {
+  const classes = getStyles();
+  const searchOptions = ["movie", "multi", "tv"];
 
   return (
-    <form onSubmit={props.onSubmit} className={classes.form} onChange={props.onChange}>
+    <form
+      onSubmit={props.onSubmit}
+      className={classes.form}
+    >
       <TextField
-        label='Search'
-        name='movieName'
+        label="Search"
+        name="movieName"
         className={classes.textField}
-        margin='normal'
-        variant='outlined'
+        margin="normal"
+        variant="outlined"
+        onChange={(e) => props.handleInputChange(e)}
       />
-      <SearchDropdown
-      onInputChange={e => props.getDropDownSelection(e.target.value)}
-      ></SearchDropdown>
-      <Button variant='outlined' className={classes.button} type='submit'>
+      <Dropdown 
+      className={classes.dropDown}
+        onDropdownChange={(e) => props.getDropDownSelection(e)}
+        dropDownData = {searchOptions}
+      />
+      <Button 
+      variant="outlined" 
+      className={classes.button} 
+      type="submit">
         Search
       </Button>
     </form>
-  )
-}
+  );
+};
 
-export default Form
+export default SearchBar;
