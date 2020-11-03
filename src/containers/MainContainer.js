@@ -6,7 +6,7 @@ import TabContainer from './TabsContainer'
 
 import { getMovie } from '../services/api'
 
-class RecipesContainer extends Component {
+class MainContainer extends Component {
   state = {
     searchQuery: '',
     movies: '',
@@ -46,4 +46,4 @@ class RecipesContainer extends Component {
   }
 }
 
-export default RecipesContainer
+export default MainContainer

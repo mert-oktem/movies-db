@@ -1,14 +1,13 @@
 import axios from 'axios'
 
-import { APP_ID, APP_KEY, BASE_URL } from '../config/api_config'
+import { API_KEY, BASE_URL } from '../config/api_config'
 
 
 // Search movie
-export const getMovie = async (e, movieName) => {
+export const getSearchResults = async (type, query) => {
   try {
-
     const response = await axios.get(
-      `${BASE_URL}search/${e}?api_key=${APP_KEY}}&query=${movieName}`
+      `${BASE_URL}search/${type}?api_key=${APP_KEY}}&query=${query}`
     )
 
     const movie = response.data.results
@@ -20,11 +19,11 @@ export const getMovie = async (e, movieName) => {
 }
 
 // GET movies
-export const getMovies = async e => {
+export const getMovies = async category => {
   try {
 
     const response = await axios.get(
-      `${BASE_URL}movie/${e}?api_key=${APP_KEY}`
+      `${BASE_URL}movie/${category}?api_key=${APP_KEY}`
     )
     const movies = response.data.results
 
@@ -35,10 +34,10 @@ export const getMovies = async e => {
 }
 
   // GET TVs
-  export const getTVs = async e => {
+  export const getTVShows = async category => {
     try {
       const response = await axios.get(
-        `${BASE_URL}tv/${e}?api_key=${APP_KEY}`
+        `${BASE_URL}tv/${category}?api_key=${APP_KEY}`
       )
       const TVs = response.data.results
   
